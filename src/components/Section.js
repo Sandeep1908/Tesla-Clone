@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Fade from "react-reveal/Fade";
 
+
 function Section({
   title,
   discription,
@@ -45,7 +46,9 @@ const Wrap = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-image: ${(props) => `url("./images/images/${props.bgimage}")`};
-`;
+  
+
+`
 const ItemText = styled.div`
   text-align: center;
   padding-top: 10vh;
