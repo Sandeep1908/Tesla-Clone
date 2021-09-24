@@ -2,9 +2,12 @@ import React,{useState} from 'react'
 import styled from 'styled-components'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import {useSelector} from 'react-redux'
 
 function Header() {
     const [Burgurstatus,setBurgurstatus]=useState(false);
+    const models=useSelector(state=>state.car.cars)
+    
     return (
         <Container>
             <a href="#">
@@ -12,11 +15,11 @@ function Header() {
             </a>
 
             <Menu>
-                <a href="#">Model S</a>
-                <a href="#">Model X</a>
-                <a href="#">Model Y</a>
-                <a href="#">Model 3</a>
+                {models && models.map((cars,index)=>{
+                    return <a href="#" key={index}>{cars}</a>
+                })}   
             </Menu>
+
             <RightMenu>
                 <a href="#">Shop</a>
                 <a href="#">Tesla Account</a>
@@ -27,6 +30,10 @@ function Header() {
                 <Close>
                     <CustomClose onClick={()=>setBurgurstatus(false)}/>
                 </Close>
+
+                {models && models.map((cars,index)=>{
+                    return <li><a href="#" key={index}>{cars}</a></li>
+                })} 
                 <li><a href="#">Existing Inventory</a></li>
                 <li><a href="#">Used Inventory</a></li>
                 <li><a href="#">Trade-In</a></li>
@@ -49,11 +56,13 @@ function Header() {
 export default Header
 
 const Container= styled.div`
+    font-size:16px;
     min-height:50px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
+    padding:0 30px;
+    margin:10px;
     position:fixed;
     top:0;
     left:0;
@@ -67,7 +76,7 @@ const Menu=styled.div`
     flex:1;
     a{
         font-weight:600;
-        text-transform:uppercase;
+        // text-transform:uppercase;
         padding:0 10px;
         flex-wrap:nowrap;
         color:black;
@@ -82,7 +91,7 @@ const RightMenu=styled.div`
     justify-content:center;
     a{
     font-weight:600;
-    text-transform:uppercase;
+    // text-transform:uppercase;
     margin-right:20px;
     color:black;
     }
@@ -106,7 +115,7 @@ const BurgurNav=styled.div`
     list-style:none;
     transform:${props=> props.show ?'translateX(0)':'translateX(100%)'};
     transition:transform .3s ease-in;
-
+    overflow:scroll;
     
     li{
         padding:15px;
